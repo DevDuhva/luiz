@@ -3,6 +3,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
+
+  
   container: {
     flex: 1,
     width: '100%',
@@ -39,21 +41,24 @@ export default StyleSheet.create({
   // NAVBAR
   navbar: {
     backgroundColor: '#000',
-    padding: width * 0.03,
+    padding: 50,
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    minHeight: 60,
-    marginTop: 10,
+   
+             
   },
-  navbarSearch: {
-    backgroundColor: '#fff',
-    margin: width * 0.02,
-    padding: width * 0.02,
-    borderRadius: 8,
-    flex: 1,
-    fontSize: width > 500 ? 16 : 14,
-  },
+navbarSearch: {
+  backgroundColor: '#fff',
+  marginTop: 20,
+  marginBottom: 20,
+  padding: 15,
+  borderRadius: 8,
+  width: '81%',          // <-- deixa menor
+  alignSelf: 'center',   // <-- centraliza
+  fontSize: width > 550 ? 16 : 14,
+},
   hamburger: {
     fontSize: width > 500 ? 28 : 24,
     color: '#fff',

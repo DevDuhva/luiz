@@ -1,13 +1,15 @@
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
-import styles from "../styles/Estilos"; 
+import React from 'react';
+import { View, TextInput, TouchableOpacity } from 'react-native';
+import styles from '../styles/Estilos';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Header({ onMenuPress, onSearch }) {
   return (
     <View style={styles.navbar}>
-      
+
       {/* Botão Hamburguer */}
-      <TouchableOpacity onPress={onMenuPress}>
-        <Text style={styles.hamburger}>☰</Text>
+      <TouchableOpacity onPress={onMenuPress} style={styles.menuButton}>
+        <Ionicons name="menu-outline" size={43} color="#dbdbdbff" />
       </TouchableOpacity>
 
       {/* Barra de Pesquisa */}
@@ -17,6 +19,7 @@ export default function Header({ onMenuPress, onSearch }) {
         style={styles.navbarSearch}
         onChangeText={onSearch}
       />
+
     </View>
   );
 }
