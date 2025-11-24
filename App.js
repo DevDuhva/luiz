@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import AddProduto from "./components/AddProduto";
+import Conta from "./components/Conta";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
           <>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="AddProduto" component={AddProduto} />
+            <Stack.Screen name="Conta" component={Conta} />
           </>
         )}
       </Stack.Navigator>

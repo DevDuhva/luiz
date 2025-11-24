@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Animated, Dimensions } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
+import Header from "./Header";
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddProduto() {
   const [foto, setFoto] = useState(null);
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const screenWidth = Dimensions.get("window").width;
+  const menuX = useState(new Animated.Value(-screenWidth))[0];
+  const navigation = useNavigation();
 
   function escolherFoto() {
     launchImageLibrary({ mediaType: "photo" }, (res) => {
@@ -23,8 +30,69 @@ export default function AddProduto() {
     alert("Produto salvo!");
   }
 
+  function toggleMenu() {
+    if (menuOpen) {
+      Animated.timing(menuX, {
+        toValue: -screenWidth,
+        duration: 300,
+        useNativeDriver: true,
+      }).start(() => setMenuOpen(false));
+    } else {
+      setMenuOpen(true);
+      Animated.timing(menuX, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }
+
   return (
     <View style={styles.container}>
+      <Header onMenuPress={toggleMenu} />
+
+      {/* MENU LATERAL */}
+      {menuOpen && (
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.4)",
+            zIndex: 1,
+          }}
+          activeOpacity={1}
+          onPress={toggleMenu}
+        />
+      )}
+
+      <Animated.View
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: screenWidth * 0.7,
+          height: "100%",
+          backgroundColor: "#fff",
+          paddingTop: 50,
+          paddingHorizontal: 20,
+          transform: [{ translateX: menuX }],
+          elevation: 10,
+          zIndex: 2,
+        }}
+      >
+       
+        <TouchableOpacity onPress={() => { toggleMenu(); navigation.navigate("Home"); }}>
+          <Text style={{ fontSize: 18, marginVertical: 10 }}>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => { toggleMenu(); navigation.navigate("Conta"); }}>
+          <Text style={{ fontSize: 18, marginVertical: 10 }}>Conta</Text>
+        </TouchableOpacity>
+      </Animated.View>
+
       <Text style={styles.titulo}>Adicionar Produto</Text>
 
       <TouchableOpacity style={styles.fotoBox} onPress={escolherFoto}>
