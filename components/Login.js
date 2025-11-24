@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   erro: {
-    color: "red",
+    color: "blue",
     marginTop: 5,
   },
 });
